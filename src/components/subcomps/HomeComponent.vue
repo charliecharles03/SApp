@@ -6,6 +6,7 @@
     </svg>
     </button>
   </div>
+  <router-view></router-view>
   <div>
     <header>
       <div class="container">
@@ -74,6 +75,7 @@ export default {
     },
     profileClicked () {
       console.log('profile clicked!')
+      this.$router.push('/userProfile');
     }
   }
 }
