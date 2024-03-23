@@ -27,22 +27,20 @@
 
     <section class="features">
       <div class="container">
-        <h2>Features</h2>
-        <div class="feature-item">
-          <h3>Personalized Recommendations</h3>
-          <p>Tailored suggestions based on your listening habits.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Create Playlists</h3>
-          <p>Craft your perfect playlists for any occasion.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Discover New Artists</h3>
-          <p>Unearth hidden gems and explore diverse talents.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Offline Listening</h3>
-          <p>Download your favorite songs for offline enjoyment.</p>
+          <h2>Features</h2>
+        <div class="featureModel">
+          <div class="feature-item">
+            <h3>Rate your favorite songs</h3>
+            <p>up vote your favorite artist songs for more reach</p>
+          </div>
+          <div class="feature-item">
+            <h3>Create Playlists</h3>
+            <p>Craft your perfect playlists for any occasion.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Discover New Artists</h3>
+            <p>Unearth hidden gems and explore diverse talents.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -208,6 +206,12 @@ footer p {
 
 .UserProfileButton{
   border-radius: 15px;
+}
+
+.featureModel{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 </style>
