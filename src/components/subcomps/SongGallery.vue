@@ -20,9 +20,9 @@ export default {
     }
   },
   methods: {
-    playSong(song) {
+    playSong (song) {
       // Here you can implement the logic to play the selected song
-      console.log('Playing:', song.title);
+      console.log('Playing:', song.title)
     }
   }
 }
