@@ -1,8 +1,5 @@
 <template>
-  <!--<HomeComponent/>-->
   <router-view></router-view>
-  <router-link to="/home">Home</router-link>
-  <router-link to="/userProfile">userProfile</router-link>
 </template>
 
 <script>
