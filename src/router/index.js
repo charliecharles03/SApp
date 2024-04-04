@@ -4,6 +4,7 @@ import UserProfile from '../components/subcomps/UserProfile.vue'
 
 import HomeComponent from '../components/subcomps/HomeComponent.vue'
 import PlaylistComponent from '../components/subcomps/PlaylistComponent.vue'
+import LoginView from '../components/LoginView.vue'
 
 const routes = [
   {
@@ -19,7 +20,8 @@ const routes = [
   },
   {
     path: '/',
-    redirect: '/home'
+    name : 'Login',
+    component: LoginView
   },
   {
     path: '/playlist',
