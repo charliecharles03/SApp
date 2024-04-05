@@ -23,13 +23,43 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     };
   },
   methods: {
-    login() {
-      console.log('Username:', this.username);
-      console.log('Password:', this.password);
+    async login() {
+      try {
+        // Call the login API
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: this.username,
+            password: this.password
+          })
+        });
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // Check if the login was successful
+        if (response.ok) {
+          // Save the token to local storage
+          localStorage.setItem('token', data.token);
+
+          // Redirect to the home page
+          this.$router.push('/home');
+        } else {
+          // Display an error message
+          this.errorMessage = data.message;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        this.errorMessage = 'An error occurred. Please try again.';
+      }
     }
   }
 };
