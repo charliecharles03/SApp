@@ -21,6 +21,12 @@
       <div class="container">
         <h2>Discover. Listen. Enjoy.</h2>
         <p>Explore a world of melodies right at your fingertips.</p>
+<div class="search-container">
+    <input type="text" v-model="searchQuery" @input="searchSongs" placeholder="Search songs...">
+    <ul class="song-list">
+      <li v-for="(song, index) in filteredSongs" :key="index">{{ song.title }}</li>
+    </ul>
+  </div>
         <a  @click="onClick()" class="btn">Search</a>
       </div>
     </section>
@@ -56,7 +62,7 @@
   </div>
 </template>
 <script>
-
+import axios from 'axios';
 import SongGallery from './SongGallery.vue'
 import { songs } from './SongService.js'
 
@@ -67,7 +73,25 @@ export default {
   },
   data () {
     return {
+      searchQuery: '',
       songs: songs
+    }
+  },
+  computed: {
+    filteredSongs() {
+      return this.songs.filter(song =>
+        song.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
+  },
+  mounted () {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Include JWT token in request headers
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      this.fetchSongs();
+    } else {
+      console.error('JWT token not found.');
     }
   },
   methods: {
@@ -80,6 +104,17 @@ export default {
     },
     goToPlayList () {
       this.$router.push('/playlist')
+    },
+    fetchSongs () {
+      // Fetch songs from the server
+       axios.get('http://localhost:5000/api/auth/recents')
+        .then(response => {
+          this.songs = response.data;
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.error('Error fetching songs:', error);
+        });
     }
   }
 }

@@ -13,6 +13,9 @@
           <input type="password" id="password" v-model="password" required>
         </div>
         <button type="submit">Login</button>
+        <br>
+        <br>
+        <button @click="this.$router.push('/register')">Register</button>
       </form>
     </div>
   </div>
@@ -44,11 +47,16 @@ export default {
 
         // Parse the JSON response
         const data = await response.json();
+        console.log(data);
 
         // Check if the login was successful
         if (response.ok) {
           // Save the token to local storage
-          localStorage.setItem('token', data.token);
+          localStorage.setItem('token', data.access_token);
+          localStorage.setItem('username', this.username);
+          localStorage.setItem('user_id', data.users.user_id);
+          localStorage.setItem('role', data.users.role_type);
+          localStorage.setItem('email', data.users.email);
 
           // Redirect to the home page
           this.$router.push('/home');
