@@ -1,6 +1,7 @@
 <template>
   <div class="UserProfileClass">
     <div class="ButtonClass">
+        <a  @click="goToCreator()" v-if="isCreator" class="btn">Creator</a>
         <a  @click="goToPlayList()" class="btn">PlayLists</a>
       <button @click="profileClicked()" class="UserProfileButton">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -23,11 +24,10 @@
         <p>Explore a world of melodies right at your fingertips.</p>
 <div class="search-container">
     <input type="text" v-model="searchQuery" @input="searchSongs" placeholder="Search songs...">
-    <ul class="song-list">
-      <li v-for="(song, index) in filteredSongs" :key="index">{{ song.title }}</li>
+    <ul class="song-list" v-if="showResults">
+      <li v-for="(song, index) in filteredSongs" :key="index" @click="selectedSong(song.title)">{{ song.title }}</li>
     </ul>
   </div>
-        <a  @click="onClick()" class="btn">Search</a>
       </div>
     </section>
 
@@ -74,7 +74,9 @@ export default {
   data () {
     return {
       searchQuery: '',
-      songs: songs
+      songs:[],
+      showResults: false,
+      isCreator: false,
     }
   },
   computed: {
@@ -83,6 +85,11 @@ export default {
         song.title.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
+  },
+  created(){
+    if(localStorage.getItem('role') == 'creator'){
+        this.isCreator = true;
+    }
   },
   mounted () {
     const token = localStorage.getItem('token');
@@ -95,9 +102,6 @@ export default {
     }
   },
   methods: {
-    onClick () {
-      console.log('button clicked!')
-    },
     profileClicked () {
       console.log('profile clicked!')
       this.$router.push('/userProfile')
@@ -115,6 +119,15 @@ export default {
         .catch(error => {
           console.error('Error fetching songs:', error);
         });
+    },
+    searchSongs(){
+      this.showResults = this.searchQuery !== '';
+    },
+    selectedSong(title){
+       console.log('Selected song:', title);
+    },
+    goToCreator(){
+      this.$router.push('/creator')
     }
   }
 }
@@ -194,6 +207,7 @@ nav ul li a {
   text-decoration: none;
   border-radius: 5px;
   transition: background 0.3s ease;
+  margin-right:10px;
 }
 
 .btn:hover {
@@ -266,4 +280,36 @@ footer p {
   gap: 20px;
 }
 
+<style scoped>
+.search-container {
+  position: relative;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.song-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.song-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.song-list li:last-child {
+  border-bottom: none;
+}
+
+.song-list img {
+  margin-right: 10px;
+}
 </style>
