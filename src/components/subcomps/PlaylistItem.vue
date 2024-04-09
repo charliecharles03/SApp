@@ -1,51 +1,77 @@
 <template>
-  <div class="playlist-item">
-    <img :src="song.cover" alt="Song Cover" class="cover-image">
-    <div class="song-details">
-      <p><strong>Title:</strong> {{ song.title }}</p>
-      <p><strong>Artist:</strong> {{ song.artist }}</p>
-      <p><strong>Album:</strong> {{ song.album }}</p>
-      <p><strong>Genre:</strong> {{ song.genre }}</p>
-      <p><strong>Year:</strong> {{ song.year }}</p>
-      <p><strong>Duration:</strong> {{ song.duration }}</p>
-    </div>
-    <audio controls :src="song.audio" class="audio-player">
-      Your browser does not support the audio element.
-    </audio>
+  <div class="edit-form">
+    <label>Title:</label>
+    <input type="text" v-model="editedSong.title">
+    <label>Artist:</label>
+    <input type="text" v-model="editedSong.artist">
+    <label>Album:</label>
+    <input type="text" v-model="editedSong.album">
+    <label>Duration:</label>
+    <input type="text" v-model="editedSong.duration">
+    <label>Genre:</label>
+    <input type="text" v-model="editedSong.genre">
+    <label>Year:</label>
+    <input type="number" v-model="editedSong.year">
+    <label>Cover:</label>
+    <input type="text" v-model="editedSong.cover">
+    <label>Audio:</label>
+    <input type="text" v-model="editedSong.audio">
+    <button @click="saveChanges">Save Changes</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    song: {
-      type: Object,
-      required: true
+  data() {
+    return {
+      editedSong: {
+        title: 'Song Title 1',
+        artist: 'Artist Name 1',
+        album: 'Album Name 1',
+        duration: '3:45',
+        genre: 'Pop',
+        year: 2020,
+        cover: 'https://img.freepik.com/free-psd/club-dj-party-post-social-media-template_505751-3256.jpg',
+        audio: 'song_audio1.mp3'
+      }
+    };
+  },
+  methods: {
+    saveChanges() {
+      // Implement save changes functionality here
+      console.log('Changes saved:', this.editedSong);
     }
   }
 };
 </script>
 
 <style scoped>
-.playlist-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+.edit-form {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.cover-image {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
+label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-.song-details {
-  flex-grow: 1;
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
 }
 
-.audio-player {
-  margin-left: 20px;
-  width: 200px;
+button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darkorange;
 }
 </style>
-

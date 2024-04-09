@@ -1,7 +1,7 @@
-<template>
-  <div class="playlist">
+<<template>
+  <div>
+ <div class="playlist">
     <div class="header">
-      <button @click="goToHome()" class="backButton">Back</button>
     <h2>{{ playlistName }}</h2>
     </div>
     <div class="playlist-tiles">
@@ -17,20 +17,16 @@
       </div>
     </div>
   </div>
-  <div class="Album">
-    <AlbumComponent/>
+
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import SongGallery from './SongGallery.vue'
-import AlbumComponent from './AlbumComponent.vue'
 
 export default {
  components: {
-    SongGallery,
-    AlbumComponent
+    SongGallery
   },
   data() {
     return {
@@ -47,13 +43,13 @@ export default {
     fetchPlaylists() {
       // Make Axios call to fetch playlists
       var userId = 1;
-      axios.get('http://localhost:5000/api/auth/getplaylist',{
+      axios.get('http://localhost:5000/api/auth/getalbum',{
         params:{
           user_id: userId
         }
       })
         .then(response => {
-          this.playlists = response.data.playlists;
+          this.playlists = response.data.albums;
         })
         .catch(error => {
           console.error('Error fetching playlists:', error);
@@ -134,4 +130,5 @@ export default {
         }
 
 </style>
+
 
