@@ -2,7 +2,6 @@
   <div>
  <div class="playlist">
     <div class="header">
-    <h2>{{ playlistName }}</h2>
     </div>
     <div class="playlist-tiles">
       <div v-for="(songs, playlistName) in playlists" :key="playlistName" class="playlist-tile" @click="showPlaylistSongs(songs)">
@@ -13,7 +12,7 @@
     <div v-if="selectedPlaylist">
       <div class="playlist-display">
       <h3>{{ selectedPlaylistName }}</h3>
-      <SongGallery :songs="selectedPlaylist" />
+      <SongGallery @send-data="handleDataFromChild" :songs="selectedPlaylist" />
       </div>
     </div>
   </div>
@@ -33,7 +32,8 @@ export default {
       playlistName: 'Playlists',
       playlists: {},
       selectedPlaylist: null,
-      selectedPlaylistName: null
+      selectedPlaylistName: null,
+      dataFromChild: ''
     };
   },
   created() {
@@ -42,7 +42,7 @@ export default {
   methods: {
     fetchPlaylists() {
       // Make Axios call to fetch playlists
-      var userId = 1;
+      var userId = localStorage.getItem('user_id');
       axios.get('http://localhost:5000/api/auth/getalbum',{
         params:{
           user_id: userId
@@ -70,6 +70,10 @@ export default {
     },
     goToHome(){
       this.$router.push('/home')
+    },
+    handleDataFromChild(data){
+      this.dataFromChild = data;
+      this.$emit('parent-data',this.dataFromChild);
     }
   }
 };

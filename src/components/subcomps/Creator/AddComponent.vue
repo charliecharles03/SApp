@@ -113,7 +113,7 @@ export default {
       console.log(this.album.title);
       console.log(this.album.song_name);
       const data = {
-        user_id: 1,
+        user_id: localStorage.getItem('user_id'),
         song_name: this.album.song_name,
         album_name: this.album.title
       };

@@ -7,6 +7,7 @@ import CreatorComponent from '../components/subcomps/Creator/CreatorComponent.vu
 import PlaylistComponent from '../components/subcomps/PlaylistComponent.vue'
 import LoginView from '../components/LoginView.vue'
 import RegisterView from '../components/RegisterView.vue'
+import AdminComponent from '../components/subcomps/Admin/AdminComponent.vue'
 
 const routes = [
   {
@@ -40,6 +41,11 @@ const routes = [
     path:'/register',
     name:'Register',
     component: RegisterView
+  },
+  {
+    path: '/admin',
+    name: 'AdminComponent',
+    component: AdminComponent
   }
 ]
 

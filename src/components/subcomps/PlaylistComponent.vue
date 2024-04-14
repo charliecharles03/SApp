@@ -46,8 +46,9 @@ export default {
   methods: {
     fetchPlaylists() {
       // Make Axios call to fetch playlists
-      var userId = 1;
-      axios.get('http://localhost:5000/api/auth/getplaylist',{
+      var userId = 1 ;
+
+      axios.get('http://localhost:5000/api/auth/getloginplaylist',{
         params:{
           user_id: userId
         }

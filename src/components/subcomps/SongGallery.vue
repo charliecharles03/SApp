@@ -22,7 +22,7 @@ export default {
   methods: {
     playSong (song) {
       // Here you can implement the logic to play the selected song
-      console.log('Playing:', song.title)
+      this.$emit('send-data', song.song_id);
     }
   }
 }

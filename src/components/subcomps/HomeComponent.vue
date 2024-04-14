@@ -2,6 +2,7 @@
   <div class="UserProfileClass">
     <div class="ButtonClass">
         <a  @click="goToCreator()" v-if="isCreator" class="btn">Creator</a>
+        <a  @click="goToAdmin()" v-if="isAdmin" class="btn">Admin</a>
         <a  @click="goToPlayList()" class="btn">PlayLists</a>
       <button @click="profileClicked()" class="UserProfileButton">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -77,6 +78,7 @@ export default {
       songs:[],
       showResults: false,
       isCreator: false,
+      isAdmin: false,
     }
   },
   computed: {
@@ -87,8 +89,12 @@ export default {
     },
   },
   created(){
-    if(localStorage.getItem('role') == 'creator'){
+    var user_type = localStorage.getItem('role');
+    if(user_type == 'creator'){
         this.isCreator = true;
+    }
+    else if(user_type == 'admin'){
+      this.isAdmin = true
     }
   },
   mounted () {
@@ -128,6 +134,9 @@ export default {
     },
     goToCreator(){
       this.$router.push('/creator')
+    },
+    goToAdmin(){
+      this.$router.push('/admin')
     }
   }
 }

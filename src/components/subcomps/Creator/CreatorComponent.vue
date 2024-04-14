@@ -6,6 +6,7 @@
       <button @click="showComponent('Component1')">Albums</button>
       <button @click="showComponent('Component2')">Add</button>
       <button @click="showComponent('Component3')">Edit</button>
+      <button @click="showComponent('Component4')">Delete</button>
     </nav>
 
     <div v-if="currentComponent === 'Component1'">
@@ -19,6 +20,12 @@
     <div v-if="currentComponent === 'Component3'">
       <EditComponent/>
     </div>
+
+    <div v-if="currentComponent === 'Component4'">
+      <DeleteComponent/>
+    </div>
+
+
   </div>
 </template>
 
@@ -26,12 +33,14 @@
 import AddComponent from './AddComponent.vue'; // Import your Component1 file
 import EditComponent from './EditComponent.vue'; // Import your Component2 file
 import CreatorListComponent from './CreatorListComponent.vue'; // Import your Component3 file
+import DeleteComponent from './DeleteComponent.vue'; // Import your Component3 file
 
 export default {
   components: {
     AddComponent,
     CreatorListComponent,
-    EditComponent
+    EditComponent,
+    DeleteComponent
   },
   data() {
     return {

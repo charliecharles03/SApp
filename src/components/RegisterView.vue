@@ -52,8 +52,6 @@ export default {
       console.log('Email:', this.email);
       console.log('Password:', this.password);
       console.log('Role:', this.role);
-
-
       const formData = new URLSearchParams();
       formData.append('username',this.username );
       formData.append('email',this.email );
@@ -66,6 +64,7 @@ export default {
       })
       .then(response => {
           console.log(response.data)
+          this.$router.push('/')
         })
       .catch(error => {
           console.error('errror:', error);
