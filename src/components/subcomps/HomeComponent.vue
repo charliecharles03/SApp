@@ -87,18 +87,10 @@ export default {
       isCreator: false,
       isAdmin: false,
       currentSong:{
-        album: "dafadsf",
-        artist: "da",
-        audio: "aaaaaaa",
-        cover: "https://img.freepik.com/free-psd/club-dj-party-post-social-media-template_505751-3256.jpg",
-        duration: "dafdsf",
-        genre: "rock",
-        song_id: 2,
-        title: "idontknow",
-        year: "dafsd"
-      },
+              },
       userPlaylists: [],
-      showPopup: false
+      showPopup: false,
+      currentSongId: null
     }
   },
   computed: {
@@ -151,7 +143,8 @@ export default {
     },
     selectedSong(song){
       console.log(song)
-      this.currentSong = song; },
+      this.currentSong = song;
+    },
     goToCreator(){
       this.$router.push('/creator')
     },
@@ -164,6 +157,8 @@ export default {
     },
     buttonclick(data){
       this.fetchPlaylistNames()
+      this.currentSongId = data;
+      console.log(data);
       this.showPopup = true;
     },
     fetchPlaylistNames(){
@@ -178,16 +173,13 @@ export default {
           this.userPlaylists= response.data.map(item=>item[2])
         })
         .catch(error => {
-          console.error('errror:', error);
+          console.error('errror');
         });
     },
     addToPlayList(input){
-      console.log(input);
-      console.log(this.currentSong.song_id);
-      console.log(localStorage.getItem('user_id'));
       const data = {
         user_id: localStorage.getItem('user_id'),
-        song_id: this.currentSong.song_id,
+        song_id: this.currentSongId,
         playlist_name:input
       };
       axios.post('http://localhost:5000/api/auth/addplaylist',data).

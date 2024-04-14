@@ -52,7 +52,7 @@ export default {
           this.playlists = response.data.albums;
         })
         .catch(error => {
-          console.error('Error fetching playlists:', error);
+          console.error('Error fetching playlists');
         });
     },
     showPlaylistSongs(songs) {

@@ -28,7 +28,7 @@ export default {
       var userId= localStorage.getItem('user_id');
       console.log('Added to playlist:', this.song.id);
       console.log('Added to userId:',userId);
-      this.$emit('add-to',true);
+      this.$emit('add-to',this.song.id);
     }
   }
 };
