@@ -6,6 +6,7 @@ import HomeComponent from '../components/subcomps/HomeComponent.vue'
 import CreatorComponent from '../components/subcomps/Creator/CreatorComponent.vue'
 import PlaylistComponent from '../components/subcomps/PlaylistComponent.vue'
 import LoginView from '../components/LoginView.vue'
+import RegisterView from '../components/RegisterView.vue'
 
 const routes = [
   {
@@ -34,6 +35,11 @@ const routes = [
     path: '/creator',
     name: 'CreateComponent',
     component: CreatorComponent
+  },
+  {
+    path:'/register',
+    name:'Register',
+    component: RegisterView
   }
 ]
 

@@ -79,14 +79,14 @@ export default {
       formData.append('songFile', this.songForm.songFile);
       formData.append('coverFile', this.songForm.coverFile);
 
-      axios.post('/api/songs', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      axios.post('http://localhost:5000/api/auth/updatesong', formData, {
+        params:{
+          song_name: this.songForm.title
         }
       }).then(response => {
-        // Handle response
+        console.log("song successfully updated")
       }).catch(error => {
-        // Handle error
+        console.log(error);
       });
     },
     handleSongFileChange(event) {

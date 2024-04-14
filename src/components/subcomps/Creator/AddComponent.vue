@@ -8,9 +8,16 @@
       <div class="form-group">
         <label>Title:</label>
         <input type="text" v-model="album.title" required>
+        <br/>
+        <br/>
+        <label>Song Name:</label>
+        <input type="text" v-model="album.song_name" required>
       </div>
       <button type="submit">Add Album</button>
     </form>
+  <div v-if="showSuccessAlert" class="success-alert">
+      New album added successfully!
+  </div>
   </div>
     </div>
     <div class="section">
@@ -66,27 +73,33 @@ export default {
       album: {
         title: '',
         artist: ''
-      }
+      },
+      showSuccessAlert: false
     };
   },
   methods: {
     submitSong() {
+      var art = localStorage.getItem('username');
       const formData = new FormData();
       formData.append('title', this.songForm.title);
-      formData.append('artist', this.songForm.artist);
+      formData.append('artist', art);
       formData.append('album', this.songForm.album);
       formData.append('duration', this.songForm.duration);
       formData.append('songFile', this.songForm.songFile);
       formData.append('coverFile', this.songForm.coverFile);
+      formData.append('duration',10);
+      formData.append('year',2021);
+      console.log(formData);
 
-      axios.post('/api/songs', formData, {
+      axios.post('http://localhost:5000/api/auth/addsong', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(response => {
         // Handle response
+        console.log(response.data);
       }).catch(error => {
-        // Handle error
+         consoe.log("not being able to add new song please ")
       });
     },
     handleSongFileChange(event) {
@@ -95,16 +108,24 @@ export default {
     handleCoverFileChange(event) {
       this.songForm.coverFile = event.target.files[0];
     },
-     submitAlbum() {
-      axios.post('/api/albums', this.album)
-        .then(response => {
+
+    submitAlbum() {
+      console.log(this.album.title);
+      console.log(this.album.song_name);
+      const data = {
+        user_id: 1,
+        song_name: this.album.song_name,
+        album_name: this.album.title
+      };
+      axios.post('http://localhost:5000/api/auth/addalbum',data).
+        then(response=>{
+          this.showSuccessAlert = true;
           console.log('Album added successfully:', response.data);
-          // You can redirect or perform any other action upon successful addition
         })
-        .catch(error => {
-          console.error('Error adding album:', error);
-        });
-    }
+        .catch(error =>{
+          console.log("not")
+        })
+     }
   }
 };
 </script>
@@ -165,6 +186,13 @@ button {
 }
 button:hover {
   background-color: darkorange;
+}
+        .success-alert {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 </style>
 
