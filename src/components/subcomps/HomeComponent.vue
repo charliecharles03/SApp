@@ -18,12 +18,11 @@
         <h1>TuneCast</h1>
       </div>
     </header>
-
     <section class="hero">
       <div class="container">
         <h2>Discover. Listen. Enjoy.</h2>
         <p>Explore a world of melodies right at your fingertips.</p>
-<div class="search-container">
+ <div class="search-container">
     <input type="text" v-model="searchQuery" @input="searchSongs" placeholder="Search songs...">
     <ul class="song-list" v-if="showResults">
       <li v-for="(song, index) in filteredSongs" :key="index" @click="selectedSong(song.title)">{{ song.title }}</li>
@@ -54,7 +53,7 @@
         </div>
       </div>
     </section>
-
+    <PlayComponent :song="currentSong" />
     <footer>
       <div class="container">
         <p>&copy; 2024 TuneCast. All rights reserved.</p>
@@ -66,11 +65,13 @@
 import axios from 'axios';
 import SongGallery from './SongGallery.vue'
 import { songs } from './SongService.js'
+import PlayComponent from './PlayComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    SongGallery
+    SongGallery,
+    PlayComponent
   },
   data () {
     return {
@@ -79,6 +80,17 @@ export default {
       showResults: false,
       isCreator: false,
       isAdmin: false,
+      currentSong:{
+        album: "dafadsf",
+        artist: "da",
+        audio: "aaaaaaa",
+        cover: "https://img.freepik.com/free-psd/club-dj-party-post-social-media-template_505751-3256.jpg",
+        duration: "dafdsf",
+        genre: "rock",
+        song_id: 2,
+        title: "idontknow",
+        year: "dafsd"
+      }
     }
   },
   computed: {

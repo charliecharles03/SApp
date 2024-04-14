@@ -1,5 +1,8 @@
 <<template>
   <div>
+    <DeleteDropDown/>
+  </div>
+  <div>
     <AlbumComponent @parent-data="handleDataFromChild" />
   </div>
     <DeleteConfirmation
@@ -13,11 +16,13 @@
 
 import AlbumComponent from '../AlbumComponent.vue'
 import DeleteConfirmation from './Delete/DeleteConfirmation.vue'
+import DeleteDropDown from './Delete/DeleteDropDown.vue'
 import axios from 'axios'
   export default {
     components: {
       AlbumComponent,
-      DeleteConfirmation
+      DeleteConfirmation,
+      DeleteDropDown
     },
     data() {
       return {
@@ -51,7 +56,7 @@ import axios from 'axios'
           console.log("done");
         })
         .catch(error => {
-          console.error('errror:', error);
+          console.error('errror not albums');
         });
 
       this.hideModal();

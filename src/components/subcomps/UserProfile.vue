@@ -1,4 +1,5 @@
 <template>
+  <button @click = "goToHome()">Back</button>
   <div class="container">
     <h1 class="title">User Profile</h1>
     <div class="user-info">
@@ -32,7 +33,12 @@ export default {
       this.user.email = email;
       this.user.role = role;
     }
-  }
+  },
+  methods: {
+    goToHome(){
+      this.$router.push('/home')
+    }
+  },
 }
 </script>
 
@@ -61,5 +67,22 @@ export default {
 .user-info p {
   margin-bottom: 15px;
 }
+button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top:10px;
+  position : absolute;
+  left:10px;
+}
+
+button:hover {
+  background-color: darkorange;
+}
+
 </style>
 
