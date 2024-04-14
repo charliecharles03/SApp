@@ -11,7 +11,7 @@
           <span>{{playlistName}}</span>
         </div>
       </div>
-      <button class="delete-button" @click="deleteAlbum(selectedAlbum)">booo</button>
+      <button class="delete-button" @click="deleteAlbum(selectedAlbum)">Delete</button>
     </div>
   </div>
   <div v-if="deletedSuccessfully">Deleted successfully</div>
@@ -71,7 +71,7 @@ export default {
           console.log(this.playlists);
         })
         .catch(error => {
-          console.error('Error fetching playlists:', error);
+          console.error('Error fetching playlists:');
         });
 
     }

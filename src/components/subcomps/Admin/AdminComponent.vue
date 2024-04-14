@@ -1,4 +1,5 @@
 <<template>
+      <button @click = "goToHome()">Back</button>
   <div class="admin-container">
     <h1 class="admin-title">Admin Dashboard</h1>
     <div class="stat-card main-card">
@@ -47,15 +48,19 @@
           <p class="stat-label">Songs</p>
         </div>
       </div>
-
     </div>
   </div>
+  <AdminDeleteComponent />
 </template>
 
 <script>
   import axios from 'axios'
+  import AdminDeleteComponent from './AdminDeleteComponent.vue'
 export default {
   name: 'AdminDashboard',
+  components:{
+    AdminDeleteComponent,
+  },
   data() {
     return {
       users: 0,
@@ -140,6 +145,9 @@ export default {
           console.error('errror:', error);
         });
 
+    },
+    goToHome(){
+      this.$router.push('/home')
     }
 
   }
@@ -218,4 +226,19 @@ export default {
   margin-bottom: 60px;
 
  }
+
+button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: darkorange;
+}
+
 </style>

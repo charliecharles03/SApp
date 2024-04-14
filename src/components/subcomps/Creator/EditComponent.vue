@@ -1,18 +1,5 @@
 <template>
   <div class="creator-container">
-    <div class="section" >
-      <h2>Albums</h2>
-     <div>
-    <h2>Edit Album</h2>
-    <form @submit.prevent="submitAlbum">
-      <div class="form-group">
-        <label>Title:</label>
-        <input type="text" v-model="album.title" required>
-      </div>
-      <button type="submit">Edit Album</button>
-    </form>
-  </div>
-    </div>
     <div class="section">
       <h2>Edit Song</h2>
       <form @submit.prevent="submitSong" class="form">
