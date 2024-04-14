@@ -22,6 +22,7 @@ export default {
   methods: {
     playSong (song) {
       // Here you can implement the logic to play the selected song
+      this.$emit('send-song',song);
       this.$emit('send-data', song.song_id);
     }
   }

@@ -46,7 +46,7 @@ export default {
   methods: {
     fetchPlaylists() {
       // Make Axios call to fetch playlists
-      var userId = localStorage.getItem('user_id');
+      var userId= localStorage.getItem('user_id');
       axios.get('http://localhost:5000/api/auth/getplaylist',{
         params:{
           user_id: userId
@@ -56,7 +56,7 @@ export default {
           this.playlists = response.data.playlists;
         })
         .catch(error => {
-          console.error('Error fetching playlists: no songs');
+          console.error('Error fetching playlists:', error);
         });
     },
     showPlaylistSongs(songs) {

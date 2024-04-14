@@ -14,6 +14,7 @@
 </template>
 
 <script>
+  import AddToPlaylistPopup from './AddToPlaylistPopup.vue';
 export default {
   props: {
     song: {
@@ -24,7 +25,10 @@ export default {
   methods: {
     addToPlaylist() {
       // Implement the logic to add the song to a playlist
-      console.log('Added to playlist:', this.song.title);
+      var userId= localStorage.getItem('user_id');
+      console.log('Added to playlist:', this.song.id);
+      console.log('Added to userId:',userId);
+      this.$emit('add-to',true);
     }
   }
 };

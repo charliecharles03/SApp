@@ -25,15 +25,20 @@
  <div class="search-container">
     <input type="text" v-model="searchQuery" @input="searchSongs" placeholder="Search songs...">
     <ul class="song-list" v-if="showResults">
-      <li v-for="(song, index) in filteredSongs" :key="index" @click="selectedSong(song.title)">{{ song.title }}</li>
+      <li v-for="(song, index) in filteredSongs" :key="index" @click="selectedSong(song)">{{ song.title }}</li>
     </ul>
   </div>
       </div>
     </section>
 
     <h2>Recently Added Songs</h2>
-    <SongGallery :songs="songs" />
-
+    <SongGallery class="Play-section" @send-song="handleevent" :songs="songs" />
+    <AddToPlaylistPopup @add="addToPlayList" :playlists="userPlaylists" v-if="showPopup" />
+    <br>
+    <br>
+    <br>
+    <br>
+    <PlayComponent @add-to="buttonclick" :song="currentSong" />
     <section class="features">
       <div class="container">
           <h2>Features</h2>
@@ -53,7 +58,6 @@
         </div>
       </div>
     </section>
-    <PlayComponent :song="currentSong" />
     <footer>
       <div class="container">
         <p>&copy; 2024 TuneCast. All rights reserved.</p>
@@ -66,12 +70,14 @@ import axios from 'axios';
 import SongGallery from './SongGallery.vue'
 import { songs } from './SongService.js'
 import PlayComponent from './PlayComponent.vue'
+import AddToPlaylistPopup from './AddToPlaylistPopup.vue';
 
 export default {
   name: 'App',
   components: {
     SongGallery,
-    PlayComponent
+    PlayComponent,
+    AddToPlaylistPopup
   },
   data () {
     return {
@@ -90,7 +96,9 @@ export default {
         song_id: 2,
         title: "idontknow",
         year: "dafsd"
-      }
+      },
+      userPlaylists: [],
+      showPopup: false
     }
   },
   computed: {
@@ -141,14 +149,55 @@ export default {
     searchSongs(){
       this.showResults = this.searchQuery !== '';
     },
-    selectedSong(title){
-       console.log('Selected song:', title);
-    },
+    selectedSong(song){
+      console.log(song)
+      this.currentSong = song; },
     goToCreator(){
       this.$router.push('/creator')
     },
     goToAdmin(){
       this.$router.push('/admin')
+    },
+    handleevent(data){
+      console.log("here")
+      this.currentSong = data;
+    },
+    buttonclick(data){
+      this.fetchPlaylistNames()
+      this.showPopup = true;
+    },
+    fetchPlaylistNames(){
+      var user_id = localStorage.getItem('user_id');
+      axios.get('http://localhost:5000/api/auth/userplaylist',{
+        params:{
+          user_id: user_id
+        }
+      })
+        .then(response => {
+          console.log((response.data))
+          this.userPlaylists= response.data.map(item=>item[2])
+        })
+        .catch(error => {
+          console.error('errror:', error);
+        });
+    },
+    addToPlayList(input){
+      console.log(input);
+      console.log(this.currentSong.song_id);
+      console.log(localStorage.getItem('user_id'));
+      const data = {
+        user_id: localStorage.getItem('user_id'),
+        song_id: this.currentSong.song_id,
+        playlist_name:input
+      };
+      axios.post('http://localhost:5000/api/auth/addplaylist',data).
+        then(response=>{
+          console.log('Album added successfully:', response.data);
+        })
+        .catch(error =>{
+          console.log("not")
+        })
+
     }
   }
 }
