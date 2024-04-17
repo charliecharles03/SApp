@@ -1,4 +1,11 @@
 <template>
+  <div class="new-playlist">
+    <h1>Create New Playlist</h1>
+    <input type="text" placeholder= "New Playlist" class="new-playlist-input" v-model="newPlaylistName"/>
+    <br>
+    <br>
+    <button @click="createNewPlaylist" class="btn">Create Playlist</button>
+  </div>
   <div class="playlist">
     <div class="header">
       <button @click="goToHome()" class="backButton">Back</button>
@@ -37,7 +44,8 @@ export default {
       playlistName: 'Playlists',
       playlists: {},
       selectedPlaylist: null,
-      selectedPlaylistName: null
+      selectedPlaylistName: null,
+      newPlaylistName: ''
     };
   },
   created() {
@@ -74,6 +82,22 @@ export default {
     },
     goToHome(){
       this.$router.push('/home')
+    },
+    createNewPlaylist(){
+      var userId = localStorage.getItem('user_id');
+      axios.post('http://localhost:5000/api/auth/makeplaylist',null,{
+        params:{
+          user_id: userId,
+          playlist_name: this.newPlaylistName
+        }
+      })
+        .then(response => {
+          console.log("done")
+        })
+        .catch(error => {
+          console.error('Error fetching playlists: no songs');
+        });
+
     }
   }
 };
@@ -131,6 +155,14 @@ export default {
         }
         .backButton:hover{
           transform: scale(1.1);
+        }
+        .new-playlist-input{
+          width:400px;
+                  }
+        .new-playlist{
+          position:relative;
+          left:10px;
+          margin-bottom:100px;
         }
 
 </style>
