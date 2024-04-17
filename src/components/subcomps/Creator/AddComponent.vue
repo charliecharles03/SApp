@@ -27,14 +27,7 @@
           <label>Title:</label>
           <input type="text" v-model="songForm.title" placeholder="Enter song title" required>
         </div>
-        <div class="form-group">
-          <label>Artist:</label>
-          <input type="text" v-model="songForm.artist" placeholder="Enter artist name" required>
-        </div>
-        <div class="form-group">
-          <label>Album:</label>
-          <input type="text" v-model="songForm.album" placeholder="Enter album name" required>
-        </div>
+
         <div class="form-group">
           <label>Duration:</label>
           <input type="text" v-model="songForm.duration" placeholder="Enter duration" required>
@@ -43,11 +36,7 @@
           <label>Song File:</label>
           <input type="file" @change="handleSongFileChange" accept="audio/*" required>
         </div>
-        <div class="form-group">
-          <label>Cover Image:</label>
-          <input type="file" @change="handleCoverFileChange" accept="image/*" required>
-        </div>
-        <button type="submit" class="btn">Add Song</button>
+               <button type="submit" class="btn">Add Song</button>
       </form>
     </div>
   </div>
@@ -86,7 +75,7 @@ export default {
       formData.append('album', this.songForm.album);
       formData.append('duration', this.songForm.duration);
       formData.append('songFile', this.songForm.songFile);
-      formData.append('coverFile', this.songForm.coverFile);
+      formData.append('coverFile', "https://ca-times.brightspotcdn.com/dims4/default/302667d/2147483647/strip/true/crop/1918x1080+1+0/resize/840x473!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Faf%2F9a%2F9066819041738684fccba4d8984e%2Frecords-spin-0000000.jpg");
       formData.append('duration',10);
       formData.append('year',2021);
       console.log(formData);
@@ -99,14 +88,15 @@ export default {
         // Handle response
         console.log(response.data);
       }).catch(error => {
-         consoe.log("not being able to add new song please ")
+         console.log("not being able to add new song please ")
       });
     },
     handleSongFileChange(event) {
       this.songForm.songFile = event.target.files[0];
     },
     handleCoverFileChange(event) {
-      this.songForm.coverFile = event.target.files[0];
+      this.songForm.coverFile = event.target.files[0].name;
+      console.log(event.target.files[0].name);
     },
 
     submitAlbum() {

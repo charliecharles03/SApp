@@ -4,8 +4,6 @@
     <div class="song-details">
       <h2>{{ song.title }}</h2>
       <p>{{ song.artist }} - {{ song.album }}</p>
-      <p>Genre: {{ song.genre }}</p>
-      <p>Year: {{ song.year }}</p>
       <p>Duration: {{ song.duration }}</p>
       <audio controls :src="song.audio" class="audio-player"></audio>
     </div>

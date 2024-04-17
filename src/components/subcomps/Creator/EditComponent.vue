@@ -7,15 +7,8 @@
           <label>Title:</label>
           <input type="text" v-model="songForm.title" placeholder="Enter song title" required>
         </div>
-        <div class="form-group">
-          <label>Artist:</label>
-          <input type="text" v-model="songForm.artist" placeholder="Enter artist name" required>
-        </div>
-        <div class="form-group">
-          <label>Album:</label>
-          <input type="text" v-model="songForm.album" placeholder="Enter album name" required>
-        </div>
-        <div class="form-group">
+
+               <div class="form-group">
           <label>Duration:</label>
           <input type="text" v-model="songForm.duration" placeholder="Enter duration" required>
         </div>
@@ -23,11 +16,7 @@
           <label>Song File:</label>
           <input type="file" @change="handleSongFileChange" accept="audio/*" required>
         </div>
-        <div class="form-group">
-          <label>Cover Image:</label>
-          <input type="file" @change="handleCoverFileChange" accept="image/*" required>
-        </div>
-        <button type="submit" class="btn">Edit Song</button>
+               <button type="submit" class="btn">Edit Song</button>
       </form>
     </div>
   </div>
@@ -77,7 +66,7 @@ export default {
       });
     },
     handleSongFileChange(event) {
-      this.songForm.songFile = event.target.files[0];
+      this.songForm.songFile = event.target.files[0].name;
     },
     handleCoverFileChange(event) {
       this.songForm.coverFile = event.target.files[0];
